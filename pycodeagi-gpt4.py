@@ -46,8 +46,7 @@ class GeneratePyCodeChain(LLMChain):
         llm = ChatOpenAI(model_name="gpt-4",
                          temperature=0.35,
                          request_timeout=180)
-        chain_instance = cls(prompt=prompt, llm=llm)
-        return chain_instance
+        return cls(prompt=prompt, llm=llm)
 
 
 class PyCodeAGI(Chain, BaseModel):
@@ -176,7 +175,7 @@ class PyCodeAGI(Chain, BaseModel):
 
         print("\033[93m" + "\n*****SAVING CODE TO FILE*****\n" + "\033[0m")
         code_match = re.search(r'```python(.*?)```', appcode.strip(), re.DOTALL)
-        code_content = code_match.group(1).strip()
+        code_content = code_match[1].strip()
         try:
             ast.parse(code_content)
             print("Generated code is AWESOME!")
